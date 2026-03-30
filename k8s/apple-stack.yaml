@@ -31,4 +31,4 @@ spec:
   ports:
     - protocol: TCP
       port: 80         # Port the Service listens on
-      targetPort: 5678 # Port the Pod is listening on
+      targetPort: 80 # Port the Pod is listening on
