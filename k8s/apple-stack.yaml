@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: apple-container
-        image: surajmane121045/ingress_app_one:8674990dbcab1a9192b140855cf65bbbc477f541
+        image: surajmane121045/ingress_app_one:eb4bd29defa874ead99bbeb12f1794fa362c0d25
         ports:
         - containerPort: 80
 
