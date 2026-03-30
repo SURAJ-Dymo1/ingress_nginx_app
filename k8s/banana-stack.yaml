@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
       - name: banana-container
-        image: hashicorp/http-echo
-        args: ["-text=banana"]
+        image: surajmane121045/ingress_app_two:latest
         ports:
         - containerPort: 5678
 

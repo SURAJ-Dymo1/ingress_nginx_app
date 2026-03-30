@@ -24,17 +24,17 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    # ---------------- FRONTEND ----------------
+    # ---------------- FRONTEND App1 ----------------
     - name: Build Frontend Image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/insurance-frontend:${IMAGE_TAG} ./frontend
-        docker push ${{ secrets.DOCKER_USERNAME }}/insurance-frontend:${IMAGE_TAG}
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/ingress_app_one:${IMAGE_TAG} ./App_One
+        docker push ${{ secrets.DOCKER_USERNAME }}/ingress_app_one:${IMAGE_TAG}
 
-    # ---------------- BACKEND ----------------
+    # ---------------- Frontend App2 ----------------
     - name: Build Backend Image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/insurance-backend:${IMAGE_TAG} ./backend
-        docker push ${{ secrets.DOCKER_USERNAME }}/insurance-backend:${IMAGE_TAG}
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/ingress_app_two:${IMAGE_TAG} ./App_Two
+        docker push ${{ secrets.DOCKER_USERNAME }}/ingress_app_two:${IMAGE_TAG}
 
     # ---------------- DATABASE ----------------
     # - name: Build Database Image
@@ -45,8 +45,8 @@ jobs:
     # ---------------- UPDATE K8S MANIFESTS ----------------
     - name: Update Kubernetes Manifests
       run: |
-        sed -i "s|image: .*insurance-backend:.*|image: ${{ secrets.DOCKER_USERNAME }}/insurance-backend:${IMAGE_TAG}|g" k8s-manifests/backend.yaml
-        sed -i "s|image: .*insurance-frontend:.*|image: ${{ secrets.DOCKER_USERNAME }}/insurance-frontend:${IMAGE_TAG}|g" k8s-manifests/frontend.yaml
+        sed -i "s|image: .*ingress_app_one:.*|image: ${{ secrets.DOCKER_USERNAME }}/ingress_app_one:${IMAGE_TAG}|g" k8s/apple-stack.yaml
+        sed -i "s|image: .*ingress_app_two:.*|image: ${{ secrets.DOCKER_USERNAME }}/ingress_app_two:${IMAGE_TAG}|g" k8s/banana-stack.yaml
 # sed -i "s|image: .*three_tier_app_mongodb:.*|image: ${{ secrets.DOCKER_USERNAME }}/three_tier_app_mongodb:${IMAGE_TAG}|g" k8s-manifests/mongo-deployment.yaml
 
     - name: Commit Updated Manifests

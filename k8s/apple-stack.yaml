@@ -15,8 +15,7 @@ spec:
     spec:
       containers:
       - name: apple-container
-        image: hashicorp/http-echo
-        args: ["-text=apple"] # This app just prints "apple"
+        image: surajmane121045/ingress_app_one:latest
         ports:
         - containerPort: 5678
 
