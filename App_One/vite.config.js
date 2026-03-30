@@ -1,4 +1,7 @@
+import { defineConfig } from 'vite'   // 🔥 THIS IS MISSING
+import react from '@vitejs/plugin-react'
+
 export default defineConfig({
+  base: "/apple/",
   plugins: [react()],
-  base: '/apple/',  // This MUST match your Ingress path
 })
