@@ -1,0 +1,35 @@
+# 1. THE DEPLOYMENT (The App)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apple-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: apple
+  template:
+    metadata:
+      labels:
+        app: apple
+    spec:
+      containers:
+      - name: apple-container
+        image: hashicorp/http-echo
+        args: ["-text=apple"] # This app just prints "apple"
+        ports:
+        - containerPort: 5678
+
+---
+# 2. THE SERVICE (The Internal Network Name)
+apiVersion: v1
+kind: Service
+metadata:
+  name: apple-service
+spec:
+  selector:
+    app: apple # This MUST match the label in the Deployment
+  ports:
+    - protocol: TCP
+      port: 80         # Port the Service listens on
+      targetPort: 5678 # Port the Pod is listening on

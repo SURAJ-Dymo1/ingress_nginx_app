@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: main-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /apple
+        pathType: Prefix
+        backend:
+          service:
+            name: apple-service # Connects to the Service name above
+            port:
+              number: 80
+      - path: /banana
+        pathType: Prefix
+        backend:
+          service:
+            name: banana-service # Connects to the Service name above
+            port:
+              number: 80
