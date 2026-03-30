@@ -14,8 +14,7 @@ FROM nginx:stable-alpine
 RUN mkdir -p /usr/share/nginx/html/apple
 
 # Copy your build files INTO that 'apple' folder
-COPY --from=build /app/dist /usr/share/nginx/html/apple
-
+COPY --from=build /app/dist /usr/share/nginx/html/apple/
 # We don't even need a custom nginx.conf for this! 
 # The default one you showed me will find the 'apple' folder.
 
