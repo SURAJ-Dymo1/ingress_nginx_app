@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: banana-container
-        image: surajmane121045/ingress_app_two:latest
+        image: surajmane121045/ingress_app_two:fcf1c7103cb044c9806f60019a0ca1be2a1e0688
         ports:
         - containerPort: 5678
 
