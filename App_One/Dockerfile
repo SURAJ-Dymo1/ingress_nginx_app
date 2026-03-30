@@ -1,35 +1,23 @@
-# Stage 1: Build the React app
+# Stage 1: Build
 FROM node:20-alpine AS build
 WORKDIR /app
-
-# Install dependencies first (better caching)
 COPY package*.json ./
 RUN npm install
-
-# Copy the rest of the code and build
 COPY . .
-
-
 RUN npm run build
 
-# Stage 2: Serve with Nginx
+# Stage 2: Serve
 FROM nginx:stable-alpine
 
-# Copy the build output from Stage 1 to Nginx's public folder
-COPY --from=build /app/dist /usr/share/nginx/html
+# --- THE TRICK ---
+# Create a folder named 'apple' inside the html directory
+RUN mkdir -p /usr/share/nginx/html/apple
 
-# Expose port 80 (standard for HTTP)
+# Copy your build files INTO that 'apple' folder
+COPY --from=build /app/dist /usr/share/nginx/html/apple
+
+# We don't even need a custom nginx.conf for this! 
+# The default one you showed me will find the 'apple' folder.
+
 EXPOSE 80
-
-# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
-
-
-
-# ```bash
-# docker build \
-# --build-arg VITE_Backend_API_URL=http://10.42.206.173:30008 \
-# -t surajmane121045/task-frontend:1.2 .
-# ```
-#  docker build -t my-frontend .
-# docker run -d --name my-frontend --network my-net -p 82:80 my-frontend
